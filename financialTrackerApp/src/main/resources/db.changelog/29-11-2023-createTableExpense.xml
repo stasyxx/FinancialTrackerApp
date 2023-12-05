@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="29-11-2023-createTableExpense" author="Anastasiya">
+        <createTable tableName="expense">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"> </constraints>
+            </column>
+
+            <column name="amount" type="DECIMAL">
+                <constraints nullable="false"> </constraints>
+            </column>
+            <column name="date" type="TIMESTAMP">
+                <constraints nullable="false"> </constraints>
+            </column>
+            <column name="description" type="varchar">
+                <constraints nullable="false"> </constraints>
+            </column>
+
+
+<!--TODO income/expense ? -->
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"> </constraints>
+            </column>
+
+            <column name="category" type="varchar">
+                <constraints nullable="false"> </constraints>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="liza">
+        <preConditions onFail="HALT">
+            <tableExists tableName="user"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                baseTableName="transaction"
+                baseColumnNames="user_id"
+                constraintName="FK_user_id"
+                referencedTableName="user"
+                referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

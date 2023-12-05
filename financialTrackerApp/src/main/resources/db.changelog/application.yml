@@ -1,0 +1,16 @@
+server:
+  port: 8443
+
+spring:
+  datasource:
+    url:
+    username: postgres
+    password: docker
+  jpa:
+    properties:
+      hibernate:
+        default_schema: public
+    show-sql: true
+  liquibase:
+    change-log:
+
