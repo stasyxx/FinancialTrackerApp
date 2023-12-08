@@ -1,5 +1,6 @@
 package com.pingwit.financialTrackerApp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +9,8 @@ import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

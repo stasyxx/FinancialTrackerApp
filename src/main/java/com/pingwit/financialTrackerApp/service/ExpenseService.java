@@ -12,10 +12,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -52,8 +50,8 @@ public class ExpenseService {
         return entityManager.createQuery(query).getSingleResult();
     }
 
-    public List<Expense> getAllExpensesByUserId(List<Long> expenseIds) {
-        Iterable<Expense> expenseIterable = expenseRepository.findAllById(expenseIds);
+    public List<Expense> getAllExpensesByUserId(Long expenseId) {
+        Iterable<Expense> expenseIterable = expenseRepository.findAllById(expenseId);
         List<Expense> expenseList = StreamSupport
                 .stream(expenseIterable.spliterator(), false)
                 .collect(Collectors.toList());
@@ -79,28 +77,7 @@ public class ExpenseService {
             return expenseList;
     }
 
-    public void addOwnExpense() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the details for the new expense:");
-
-        System.out.print("Description: ");
-        String description = scanner.nextLine();
-
-        System.out.print("Amount: ");
-        BigDecimal amount = scanner.nextBigDecimal();
-
-        System.out.print("Date (yyyy-MM-dd): ");
-        String dateString = scanner.next();
-        LocalDate date = LocalDate.parse(dateString);
-
-        Expense newExpense = new Expense(expenseDescription, expenseAmount, expenseDate);
-
-        expenseList.add(newExpense);
-
-        System.out.println("Expense added successfully!");
-    }
-
-    public void saveExpense(Expense expense) {
+    public void addOwnExpense(Expense expense) {
         expenseRepository.save(expense);
     }
 

@@ -19,7 +19,7 @@ public class UserCardsController {
 
     @GetMapping("/{userId}/cards")
     public ResponseEntity<List<Card>> getCardsByUserId(@PathVariable Long userId) {
-        List<Card> userCards = userService.getCardsByUserId(userId);
+        List<Card> userCards = userService.getCardsByUserId(userId); //TODO add method getCardsByUserId
         return new ResponseEntity<>(userCards, HttpStatus.OK);
     }
 

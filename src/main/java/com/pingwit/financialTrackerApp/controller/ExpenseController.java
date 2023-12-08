@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -17,21 +18,21 @@ public class ExpenseController {
     @Autowired
     private ExpenseService expenseService;
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Expense>> getAllExpensesByUserId(@PathVariable Long userId) {
-        List<Expense> expenses = expenseService.calculateTotalExpensesByUserId(); // ??????
-        return new ResponseEntity<>(expenses, HttpStatus.OK);
+    @GetMapping("/user/{userId}/totalExpenses")
+    public ResponseEntity<BigDecimal> getTotalExpensesByUserId(@PathVariable Long userId) {
+        BigDecimal totalExpenses = expenseService.calculateTotalExpensesByUserId(userId);
+        return new ResponseEntity<>(totalExpenses, HttpStatus.OK);
     }
 
-    @GetMapping("/category/{category}")
-    public ResponseEntity<List<Expense>> getExpensesByCategory(@PathVariable Category category) {
-        List<Expense> expenses = expenseService.calculateTotalExpenseByUserIdByCategory(); //???????
-        return new ResponseEntity<>(expenses, HttpStatus.OK);
+    @GetMapping("/user/{userId}/category/{categoryId}/totalExpenses")
+    public ResponseEntity<BigDecimal> getTotalExpensesByUserIdByCategory(@PathVariable Long userId, @PathVariable Category category) {
+        BigDecimal totalExpenseByCategory = expenseService.calculateTotalExpenseByUserIdByCategory(userId, category);
+        return new ResponseEntity<>(totalExpenseByCategory, HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<String> addExpense(@RequestBody Expense expense) {
-        expenseService.addOwnExpense();
+        expenseService.addOwnExpense(expense);
         return new ResponseEntity<>("Expense added successfully", HttpStatus.CREATED);
     }
 
