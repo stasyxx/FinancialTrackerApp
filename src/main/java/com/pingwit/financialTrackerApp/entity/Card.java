@@ -12,7 +12,10 @@ import java.util.Date;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long cardNumber;
+
+        @Temporal(TemporalType.DATE)
         private Date dateOfExpire;
+
         private BigDecimal cardAmount;
 
         @ManyToOne

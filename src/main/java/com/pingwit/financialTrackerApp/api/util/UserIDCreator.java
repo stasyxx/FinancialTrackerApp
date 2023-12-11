@@ -1,7 +1,4 @@
-package com.pingwit.financialTrackerApp.component;
-
-import com.pingwit.financialTrackerApp.entity.User;
-import org.hibernate.criterion.IdentifierProjection;
+package com.pingwit.financialTrackerApp.api.util;
 
 import java.util.UUID;
 

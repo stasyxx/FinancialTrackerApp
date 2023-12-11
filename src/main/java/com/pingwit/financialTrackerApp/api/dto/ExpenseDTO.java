@@ -1,4 +1,4 @@
-package com.pingwit.financialTrackerApp.dto;
+package com.pingwit.financialTrackerApp.api.dto;
 
 import java.math.BigDecimal;
 

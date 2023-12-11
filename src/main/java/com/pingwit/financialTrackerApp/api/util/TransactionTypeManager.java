@@ -1,4 +1,4 @@
-package com.pingwit.financialTrackerApp.component;
+package com.pingwit.financialTrackerApp.api.util;
 
 import java.math.BigDecimal;
 
@@ -8,8 +8,8 @@ public class TransactionTypeManager {
 
     public static void main(String[] args) {
 
-        kindOfTransaction(true, new BigDecimal(10)); // Expense
-        kindOfTransaction(false, new BigDecimal(20)); // Income
+        kindOfTransaction(true, new BigDecimal(10));
+        kindOfTransaction(false, new BigDecimal(20));
 
         System.out.println("Final Balance: $" + balance);
     }

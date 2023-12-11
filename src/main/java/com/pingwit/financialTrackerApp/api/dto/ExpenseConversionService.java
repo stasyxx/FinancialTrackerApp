@@ -1,4 +1,4 @@
-package com.pingwit.financialTrackerApp.dto;
+package com.pingwit.financialTrackerApp.api.dto;
 
 import com.pingwit.financialTrackerApp.entity.Expense;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,9 @@ public class ExpenseConversionService {
 
     public ExpenseDTO convertToExpenseDTO(Expense expense) {
         ExpenseDTO expenseDTO = new ExpenseDTO();
-        expenseDTO.setId(expense.getId());
-        expenseDTO.setDescription(expense.getDescription());
-        expenseDTO.setAmount(expense.getAmount());
-        // Category/Date ?
+        expenseDTO.setId(expense.getExpenseId());
+        expenseDTO.setDescription(expense.getExpenseDescription());
+        expenseDTO.setAmount(expense.getExpenseAmount());
         return expenseDTO;
     }
 
@@ -25,11 +24,10 @@ public class ExpenseConversionService {
     }
 
     public Expense convertToExpense(ExpenseDTO expenseDTO) {
-        Expense expense = new Expense(description, amount, date);
-        expense.setId(expenseDTO.getId());
-        expense.setDescription(expenseDTO.getDescription());
-        expense.setAmount(expenseDTO.getAmount());
-        // Category/Date ?
+        Expense expense = new Expense(); // ???
+        expense.setExpenseId(expenseDTO.getId());
+        expense.setExpenseDescription(expenseDTO.getDescription());
+        expense.setExpenseAmount(expenseDTO.getAmount());
         return expense;
     }
 }

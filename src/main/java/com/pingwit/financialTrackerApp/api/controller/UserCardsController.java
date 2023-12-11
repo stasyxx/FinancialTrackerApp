@@ -1,4 +1,4 @@
-package com.pingwit.financialTrackerApp.controller;
+package com.pingwit.financialTrackerApp.api.controller;
 
 import com.pingwit.financialTrackerApp.entity.Card;
 import com.pingwit.financialTrackerApp.entity.User;

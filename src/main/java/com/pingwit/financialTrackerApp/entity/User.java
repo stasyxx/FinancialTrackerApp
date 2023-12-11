@@ -17,10 +17,9 @@ import static org.hibernate.criterion.Projections.id;
 
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-    private String name;
-    private String surname;
-
+    private String username;
 
     @OneToMany
     private Expense expense;
