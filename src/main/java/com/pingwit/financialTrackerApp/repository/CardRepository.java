@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Repository
 public interface CardRepository extends PagingAndSortingRepository<Card, Long> {

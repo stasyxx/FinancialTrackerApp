@@ -26,17 +26,12 @@ public class CategoryController {
         categoryService.addCategory(category);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/category")
-    public List<Category> getCategory() {
-        return categoryService.getCategory();
+    @RequestMapping(method = RequestMethod.GET, value = "/categories")
+    public List<Category> getCategories() {
+        return categoryService.getCategories();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/CategoryList")
-    public List<String> getCategories() {
-        return categoryService.getOnlyCategories();
-    }
-
-    @GetMapping("/categoryId")
+    @GetMapping("/get-category-id")
     @ApiOperation("Returns category ID by name.")
     public ResponseEntity<Long> getIdForCategory(@RequestParam String category) {
         try {

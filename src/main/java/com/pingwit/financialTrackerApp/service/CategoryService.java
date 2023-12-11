@@ -14,11 +14,7 @@ public class CategoryService {
     @Autowired
     public CategoryRepository categoryRepository;
 
-    public List<String> getOnlyCategories() {
-        return categoryRepository.getOnlyCategories();
-    }
-
-    public List<Category> getCategory() {
+    public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
         categoryRepository.findAll()
                 .forEach(categories::add);

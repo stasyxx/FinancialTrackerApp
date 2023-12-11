@@ -23,10 +23,7 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
     void deleteCategoryByName(@Param("category") String categoryName);
 
     @Query("SELECT c.category FROM Category c")
-    public List<String> getOnlyCategories();
-
-    @Query("SELECT c.category FROM Category c")
-    public List<Category> getCategory();
+    public List<Category> getCategories();
 
     @Query("SELECT c.categoryId FROM Category c WHERE c.category = :category")
     public Long getIdForCategory(@Param("category") String category);
