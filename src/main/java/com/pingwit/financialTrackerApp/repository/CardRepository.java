@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface CardRepository extends PagingAndSortingRepository<Card, Long> {
-        @Query("select c.cardAmount from Card c")
+        @Query("SELECT c.cardAmount FROM Card c")
         public List<BigDecimal> getCardAmount();
 
         @Query("SELECT COALESCE(c.dateOfExpire, :defaultDate) FROM Card c")

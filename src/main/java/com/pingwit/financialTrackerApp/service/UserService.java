@@ -8,8 +8,11 @@ import java.util.UUID;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
-    // UUID.randomUUID().toString().
+    public String generateRandomUUID() {
+        return UUID.randomUUID().toString();
+    }
 }

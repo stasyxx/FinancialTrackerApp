@@ -1,6 +1,7 @@
 package com.pingwit.financialTrackerApp.service;
 
 import com.pingwit.financialTrackerApp.entity.Expense;
+import com.pingwit.financialTrackerApp.exception.ExpenseExistsException;
 import com.pingwit.financialTrackerApp.exception.ExpenseNotFoundException;
 import com.pingwit.financialTrackerApp.repository.CategoryRepository;
 import com.pingwit.financialTrackerApp.repository.ExpenseRepository;
@@ -19,7 +20,7 @@ public class ExpenseService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public void addExpense(Expense expense) {
+    public void addExpense(Expense expense) throws ExpenseExistsException {
         expenseRepository.save(expense);
     }
 
@@ -55,7 +56,7 @@ public class ExpenseService {
         }
     }
 
-    public void deleteExpenseById(Long expenseId) {
+    public void deleteExpenseById(Long expenseId) throws ExpenseNotFoundException {
         Optional<Expense> expense = expenseRepository.findById(expenseId);
         if (expense.isPresent()) {
             System.out.println("Deleting expense by Id: " + expenseId);

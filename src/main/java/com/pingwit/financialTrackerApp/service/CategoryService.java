@@ -1,6 +1,7 @@
 package com.pingwit.financialTrackerApp.service;
 
 import com.pingwit.financialTrackerApp.entity.Category;
+import com.pingwit.financialTrackerApp.exception.CategoryExistsException;
 import com.pingwit.financialTrackerApp.exception.CategoryNotFoundException;
 import com.pingwit.financialTrackerApp.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,11 @@ public class CategoryService {
         return categories;
     }
 
-    public void addCategory(Category category) {
+    public void addCategory(Category category) throws CategoryExistsException {
         categoryRepository.save(category);
     }
 
-    public Long getIdForCategory(String category) {
+    public Long getIdForCategory(String category) throws CategoryNotFoundException {
         return categoryRepository.getIdForCategory(category);
     }
 
@@ -51,33 +52,5 @@ public class CategoryService {
         } else {
             throw new CategoryNotFoundException("Expense does not exist: " + category);
         }
-    }
-
-    public Map<String, Long> getPieChartData() {
-
-        List<Object[]> object = categoryRepository.getPieChartData();
-        Map<String, Long> pieChart = new HashMap<String, Long>();
-
-        for (int i = 0; i < object.size(); i++) {
-            Object[] pieChartLine = object.get(i);
-            String category = (String) pieChartLine[0];
-            Long amount = (Long) pieChartLine[1];
-            pieChart.put(category, amount);
-        }
-        return pieChart;
-    }
-
-    public Map<String, Long> getPieChartDataByDate(Date fDate, Date tDate) {
-
-        List<Object[]> object = categoryRepository.getPieChartDataByDate(fDate, tDate);
-        Map<String, Long> pieChart = new HashMap<String, Long>();
-
-        for (int i = 0; i < object.size(); i++) {
-            Object[] pieChartLine = object.get(i);
-            String category = (String) pieChartLine[0];
-            Long amount = (Long) pieChartLine[1];
-            pieChart.put(category, amount);
-        }
-        return pieChart;
     }
 }

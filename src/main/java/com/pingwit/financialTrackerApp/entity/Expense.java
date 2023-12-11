@@ -9,11 +9,13 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 
 public class Expense {
     @Id

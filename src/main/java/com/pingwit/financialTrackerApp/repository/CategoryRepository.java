@@ -22,23 +22,15 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
     @Query("DELETE FROM Category c WHERE c.categoryName = :category")
     void deleteCategoryByName(@Param("category") String categoryName);
 
-    @Query("select c.category from Category c")
+    @Query("SELECT c.category FROM Category c")
     public List<String> getOnlyCategories();
 
-    @Query("select c.categoryId from Category c where c.category = :category")
+    @Query("SELECT c.categoryId FROM Category c WHERE c.category = :category")
     public Long getIdForCategory(@Param("category") String category);
-
-    @Query("SELECT c.category, SUM(e.expenseAmount) FROM Category c, Expense e " +
-            "WHERE c.categoryId = e.categoryId GROUP BY c.category")
-    public List<Object[]> getPieChartData();
 
 	/*select c.category, SUM(e.expenseAmount)
 	from CATEGORY c, Expense e
 	where c.CATEGORY_ID = e.CATEGORY_ID
 	group by c.CATEGORY;*/
-
-    @Query("SELECT c.category, SUM(e.expenseAmount) FROM Category c, Expense e " +
-            "WHERE c.categoryId = e.categoryId AND e.expenseDate BETWEEN :fDate AND :tDate GROUP BY c.category")
-    public List<Object[]> getPieChartDataByDate(@Param("fDate") Date fDate, @Param("tDate")Date tDate);
 
 }

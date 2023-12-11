@@ -42,25 +42,24 @@ public class ExpenseController {
     @ApiOperation("Add a new expense to the system.")
     public Expense addExpense(@RequestBody Expense expense) {
         try {
+            expenseService.addExpense(expense);
         } catch (DateTimeParseException e) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Invalid date format, use YYYY-MM-DD format", e);
-      //  } catch (ExpenseExistsException e) {
-      //      throw new ResponseStatusException(
-      //              HttpStatus.CONFLICT, e.getMessage(), e);
+        } catch (ExpenseExistsException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, e.getMessage(), e);
         }
+        return expense;
     }
 
     @DeleteMapping(path = "{expenseId}")
     public void deleteExpenseById(@PathVariable("expenseId") Long expenseId) {
         try {
             expenseService.deleteExpenseById(expenseId);
-        } catch (DateTimeParseException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR, "Invalid date format, use YYYY-MM-DD format", e);
-      //  } catch (ExpenseNotFoundException e) {
-      //     throw new ResponseStatusException(
-      //              HttpStatus.NOT_FOUND, e.getMessage(), e);
+        } catch (ExpenseNotFoundException e) {
+           throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
 }

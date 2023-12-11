@@ -1,6 +1,7 @@
 package com.pingwit.financialTrackerApp.api.controller;
 
 import com.pingwit.financialTrackerApp.entity.Category;
+import com.pingwit.financialTrackerApp.exception.CategoryExistsException;
 import com.pingwit.financialTrackerApp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ import java.util.List;
         private CategoryService categoryService;
 
         @RequestMapping(method = RequestMethod.POST, value = "/category")
-        public void addCategory(@RequestBody Category category){
+        public void addCategory(@RequestBody Category category) throws CategoryExistsException {
             categoryService.addCategory(category);
         }
 
@@ -31,5 +32,7 @@ import java.util.List;
         public List<String> getCategories(){
             return categoryService.getOnlyCategories();
         }
+
+
     }
 
