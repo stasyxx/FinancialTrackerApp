@@ -14,13 +14,12 @@ public class CategoryService {
     @Autowired
     public CategoryRepository categoryRepository;
 
-    @Autowired
     public List<String> getOnlyCategories() {
         return categoryRepository.getOnlyCategories();
     }
 
     public List<Category> getCategory() {
-        List<Category> categories = new ArrayList<Category>();
+        List<Category> categories = new ArrayList<>();
         categoryRepository.findAll()
                 .forEach(categories::add);
         return categories;
@@ -36,7 +35,6 @@ public class CategoryService {
 
     public void deleteCategoryByName(String category) throws CategoryNotFoundException {
         Optional<Category> deleteCategory = categoryRepository.findCategoryByName(category);
-
         if (deleteCategory.isPresent()) {
             categoryRepository.delete(deleteCategory.get());
         } else {
@@ -46,7 +44,6 @@ public class CategoryService {
 
     public Category findCategoryByName(String category) throws CategoryNotFoundException {
         Optional<Category> findCategoryByName = categoryRepository.findCategoryByName(category);
-
         if (findCategoryByName.isPresent()) {
             return findCategoryByName.get();
         } else {

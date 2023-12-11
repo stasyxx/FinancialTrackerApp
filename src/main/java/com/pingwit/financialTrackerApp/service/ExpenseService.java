@@ -16,12 +16,15 @@ import java.util.Optional;
 public class ExpenseService {
     @Autowired
     private ExpenseRepository expenseRepository;
-
     @Autowired
     private CategoryRepository categoryRepository;
 
     public void addExpense(Expense expense) throws ExpenseExistsException {
         expenseRepository.save(expense);
+    }
+
+    public List<Expense> getAllExpenses() {
+        return expenseRepository.getAllExpenses();
     }
 
     public List<Object[]> getByDate(Date fromDate, Date tillDate) {

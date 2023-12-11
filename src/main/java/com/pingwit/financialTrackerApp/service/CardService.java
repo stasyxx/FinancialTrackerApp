@@ -24,7 +24,6 @@ public class CardService {
         Date defaultDate = java.sql.Date.valueOf("2027-02-19");
         return cardRepository.getDateOfExpire(defaultDate);
     }
-
     public void addNewCard(Card card) throws CardExistsException {
         cardRepository.save(card);
     }

@@ -1,28 +1,32 @@
 package com.pingwit.financialTrackerApp.api.controller;
 
 import com.pingwit.financialTrackerApp.entity.Card;
-import com.pingwit.financialTrackerApp.service.UserService;
+import com.pingwit.financialTrackerApp.exception.ExpenseExistsException;
+import com.pingwit.financialTrackerApp.service.CardService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 
 @RestController
+@RequestMapping("/card")
+
 public class CardController {
     @Autowired
-    private UserService userService;
-
-    @GetMapping("/{userId}/cards")
-    public ResponseEntity<List<Card>> getCardsByUserId(@PathVariable Long userId) {
-        List<Card> userCards = userService.getCardsByUserId(userId); //TODO add method getCardsByUserId
-        return new ResponseEntity<>(userCards, HttpStatus.OK);
-    }
+    private CardService cardService;
 
     @PostMapping("/{userId}/add-card")
+    @ApiOperation("Add a new card to the system.")
     public ResponseEntity<String> addNewCard(@PathVariable Long userId, @RequestBody Card card) {
-        userService.addCardToUser(userId, card);
-        return new ResponseEntity<>("Card added successfully", HttpStatus.CREATED);
+        try {
+            cardService.addNewCard(userId, card);
+            return new ResponseEntity<>("Card added successfully", HttpStatus.CREATED);
+        } catch (ExpenseExistsException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, e.getMessage(), e);
+        }
     }
 }

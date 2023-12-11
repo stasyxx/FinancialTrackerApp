@@ -13,9 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/expenses")
@@ -33,7 +34,8 @@ public class ExpenseController {
     }
 
     @GetMapping("/user/{userId}/category/{categoryId}/totalExpenses")
-    public ResponseEntity<BigDecimal> getTotalExpensesByUserIdByCategory(@PathVariable Long userId, @PathVariable Category category) {
+    public ResponseEntity<BigDecimal> getTotalExpensesByUserIdByCategory(@PathVariable Long userId,
+                                                                         @PathVariable Category category) {
         BigDecimal totalExpenseByCategory = expenseCriteria.calculateTotalExpenseByUserIdByCategory(userId, category);
         return new ResponseEntity<>(totalExpenseByCategory, HttpStatus.OK);
     }
@@ -58,8 +60,43 @@ public class ExpenseController {
         try {
             expenseService.deleteExpenseById(expenseId);
         } catch (ExpenseNotFoundException e) {
-           throw new ResponseStatusException(
+            throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
+    }
+
+    @GetMapping("/byId")
+    @ApiOperation("Returns expense by ID.")
+    public ResponseEntity<Expense> getExpenseById(@RequestParam Long id) {
+        try {
+            Expense expenseById = expenseService.getExpenseById(id);
+            return ResponseEntity.ok(expenseById);
+        } catch (ExpenseNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/byName")
+    @ApiOperation("Returns expenses by name.")
+    public ResponseEntity<Expense> getExpenseByName(@RequestParam String name) {
+        try {
+            Optional<Expense> expenseByName = Optional.ofNullable(expenseService.findExpenseByName(name));
+            if (expenseByName.isPresent()) {
+                return ResponseEntity.ok(expenseByName.get());
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (ExpenseNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/all")
+    @ApiOperation("Returns list of all expenses in the system.")
+    public ResponseEntity<List<Expense>> getAllExpenses() {
+        List<Expense> allExpenses = expenseService.getAllExpenses();
+        return ResponseEntity.ok(allExpenses);
     }
 }

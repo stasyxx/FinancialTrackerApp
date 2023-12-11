@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Long> {
-    @Query("SELECT c FROM Category c WHERE c.name = ?1")
+    @Query("SELECT c FROM Category c WHERE c.categoryName = ?1")
     Optional<Category> findCategoryByName(String categoryName);
 
     @Transactional
@@ -24,6 +24,9 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 
     @Query("SELECT c.category FROM Category c")
     public List<String> getOnlyCategories();
+
+    @Query("SELECT c.category FROM Category c")
+    public List<Category> getCategory();
 
     @Query("SELECT c.categoryId FROM Category c WHERE c.category = :category")
     public Long getIdForCategory(@Param("category") String category);

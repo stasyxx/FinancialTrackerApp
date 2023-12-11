@@ -21,6 +21,9 @@ public interface ExpenseRepository extends PagingAndSortingRepository<Expense, L
     @Query("SELECT c FROM Expense c WHERE c.expenseId = ?1")
     Optional<Expense> getExpenseById(Long expenseId);
 
+    @Query("SELECT e FROM Expense e")
+    List<Expense> getAllExpenses();
+
     @Transactional
     @Modifying
     @Query("DELETE FROM Expense e WHERE e.expenseId = :id")
