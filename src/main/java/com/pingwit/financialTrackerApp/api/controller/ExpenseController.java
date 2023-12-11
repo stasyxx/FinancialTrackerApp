@@ -27,13 +27,13 @@ public class ExpenseController {
     @Autowired
     private ExpenseCriteria expenseCriteria;
 
-    @GetMapping("/user/{userId}/total-expenses-by-id")
+    @GetMapping("/user/{userId}/expense/{expenseId}/total-expenses-by-id")
     public ResponseEntity<BigDecimal> getTotalExpensesByUserId(@PathVariable Long userId) {
         BigDecimal totalExpenses = expenseCriteria.calculateTotalExpensesByUserId(userId);
         return new ResponseEntity<>(totalExpenses, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}/category/{categoryId}/totalExpensesByCategory")
+    @GetMapping("/user/{userId}/category/{categoryId}/total-expenses-by-category")
     public ResponseEntity<BigDecimal> getTotalExpensesByUserIdByCategory(@PathVariable Long userId,
                                                                          @PathVariable Category category) {
         BigDecimal totalExpenseByCategory = expenseCriteria.calculateTotalExpenseByUserIdByCategory(userId, category);
@@ -65,7 +65,7 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping("/findExpenseById")
+    @GetMapping("/find-expense-by-id")
     @ApiOperation("Returns expense by ID.")
     public ResponseEntity<Expense> getExpenseById(@PathVariable Long id) {
         try {
@@ -77,7 +77,7 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping("/findExpenseByName")
+    @GetMapping("/find-expense-by-name")
     @ApiOperation("Returns expenses by name.")
     public ResponseEntity<Expense> getExpenseByName(@PathVariable String name) {
         try {
@@ -93,7 +93,7 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping("/allExpenses")
+    @GetMapping("/all-expenses")
     @ApiOperation("Returns list of all expenses in the system.")
     public ResponseEntity<List<Expense>> getAllExpenses() {
         List<Expense> allExpenses = expenseService.getAllExpenses();
