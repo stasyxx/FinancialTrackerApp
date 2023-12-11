@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
@@ -48,7 +48,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/byName")
+    @GetMapping("/find-category-by-name")
     @ApiOperation("Returns category by name.")
     public ResponseEntity<Category> findCategoryByName(@RequestParam String name) {
         try {

@@ -1,9 +1,7 @@
 package com.pingwit.financialTrackerApp.api.controller;
 
 import com.pingwit.financialTrackerApp.entity.Card;
-import com.pingwit.financialTrackerApp.entity.User;
 import com.pingwit.financialTrackerApp.exception.CardExistsException;
-import com.pingwit.financialTrackerApp.exception.ExpenseExistsException;
 import com.pingwit.financialTrackerApp.service.CardService;
 import com.pingwit.financialTrackerApp.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -13,11 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/card")
@@ -27,7 +22,7 @@ public class CardController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/{userId}/add-card")
+    @PostMapping("/{userId}/add-new-card")
     @ApiOperation("Add a new card to the system.")
     public ResponseEntity<String> addNewCard(@RequestBody Card card) {
         try {
