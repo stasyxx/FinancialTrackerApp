@@ -67,7 +67,7 @@ public class ExpenseController {
 
     @GetMapping("/byId")
     @ApiOperation("Returns expense by ID.")
-    public ResponseEntity<Expense> getExpenseById(@RequestParam Long id) {
+    public ResponseEntity<Expense> getExpenseById(@PathVariable Long id) {
         try {
             Expense expenseById = expenseService.getExpenseById(id);
             return ResponseEntity.ok(expenseById);
@@ -79,7 +79,7 @@ public class ExpenseController {
 
     @GetMapping("/byName")
     @ApiOperation("Returns expenses by name.")
-    public ResponseEntity<Expense> getExpenseByName(@RequestParam String name) {
+    public ResponseEntity<Expense> getExpenseByName(@PathVariable String name) {
         try {
             Optional<Expense> expenseByName = Optional.ofNullable(expenseService.findExpenseByName(name));
             if (expenseByName.isPresent()) {
@@ -93,7 +93,7 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     @ApiOperation("Returns list of all expenses in the system.")
     public ResponseEntity<List<Expense>> getAllExpenses() {
         List<Expense> allExpenses = expenseService.getAllExpenses();

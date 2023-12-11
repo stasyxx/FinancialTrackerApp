@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class CardService {
@@ -16,11 +15,11 @@ public class CardService {
     @Autowired
     private CardRepository cardRepository;
 
-    public List<BigDecimal> getCardAmount() {
-        return cardRepository.getCardAmount();
+    public BigDecimal getCardAmount(Long cardId) {
+        return cardRepository.getCardAmount(cardId);
     }
 
-    public List<Date> getDateOfExpire() {
+    public Date getDateOfExpire() {
         Date defaultDate = java.sql.Date.valueOf("2027-02-19");
         return cardRepository.getDateOfExpire(defaultDate);
     }
